@@ -1,0 +1,79 @@
+{
+  "name": "prompt-generator",
+  "displayName": "Prompt Generator",
+  "description": "Effortlessly combine multiple files into a single file with customizable templates. Perfect for developers when applying AI-driven Development",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "icon": "icon.png",
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Prompt Generator",
+      "properties": {
+        "fileConcatenator.templates": {
+          "type": "array",
+          "default": [
+            {
+              "name": "Code review",
+              "template": "Given the below code. Help me review the code. For now and the rest of this session, make sure you output professional-grade, production-ready code that is clean, optimized, maintainable and follow best practices. Only print out the changed parts and where they are, never print out full file contents unless it's a new file. Never print out unchanged files.\n\n\n{content}"
+            }
+          ],
+          "description": "Pre-defined prompts"
+        }
+      }
+    },
+    "customEditors": [
+      {
+        "viewType": "fileConcatenator.templateEditor",
+        "displayName": "Prompt Editor",
+        "selector": [
+          {
+            "filenamePattern": "fileConcatenator.templates.json"
+          }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "prompt-generator.generate",
+        "title": "Prompt Generator"
+      },
+      {
+        "command": "fileConcatenator.editTemplates",
+        "title": "Edit Prompt Templates"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.91.0",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.11.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0"
+  }
+}
