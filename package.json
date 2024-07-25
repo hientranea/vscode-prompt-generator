@@ -2,7 +2,7 @@
   "name": "prompt-generator",
   "displayName": "Prompt Generator",
   "description": "Effortlessly combine multiple files into a single file with customizable templates. Perfect for developers when applying AI-driven Development",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.91.0"
   },

@@ -9,6 +9,12 @@ Effortlessly combine multiple files into a single file with customizable templat
 - Intuitive File Selection: Choose files easily using a visual file picker.
 - Customizable Templates: Create and edit templates to structure your concatenated content.
 - User-Friendly Template Editor: Manage your templates with a built-in, easy-to-use editor.
+- Ignore rules: Respect the .gitignore by default and allow customization of the rules.
+- Hot-key support (Cmd + M) to quickly open Prompt Generator.
+
+## Requirements
+
+- Visual Studio Code version 1.91.0 or higher
 
 ## Usage
 
@@ -42,11 +48,5 @@ You can customize this keybinding in VS Code:
 ## Known Issues
 
 TBD
-
-## Release Notes
-
-### 0.0.1
-
-Initial release - with many bugs =))
 
 **Happy coding!**
