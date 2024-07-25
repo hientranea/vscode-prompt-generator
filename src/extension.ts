@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+import ignore from 'ignore';
 import { TemplateEditorProvider } from './TemplateEditorProvider';
 
 interface Template {
@@ -21,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
         quickPick.canSelectMany = true;
         quickPick.title = 'Select files to concatenate';
 
-        // Get all files in the workspace
+        // Get all files in the workspace, respecting .gitignore
         const files = await getAllFiles(workspaceFolder.uri.fsPath);
         
         // Create QuickPickItems for each file
@@ -44,7 +45,8 @@ export function activate(context: vscode.ExtensionContext) {
 
         // Get templates from configuration
         const config = vscode.workspace.getConfiguration('fileConcatenator');
-        const templates: Template[] = config.get('templates') || [];
+        const templatesAndRules = config.get('templatesAndRules') as { templates: Template[] };
+        const templates: Template[] = templatesAndRules.templates || [];
 
         // Create QuickPick for template selection
         const templateQuickPick = vscode.window.createQuickPick();
@@ -104,20 +106,37 @@ export function activate(context: vscode.ExtensionContext) {
 
 }
 
-async function getAllFiles(dir: string): Promise<string[]> {
-    const files: string[] = [];
-    const entries = await fs.promises.readdir(dir, { withFileTypes: true });
+async function getAllFiles(workspaceRoot: string): Promise<string[]> {
+    const ignorePatterns = await getIgnoredPatterns(workspaceRoot);
+    const ig = ignore().add(ignorePatterns);
 
-    for (const entry of entries) {
-        const fullPath = path.join(dir, entry.name);
-        if (entry.isDirectory()) {
-            files.push(...await getAllFiles(fullPath));
-        } else {
-            files.push(fullPath);
-        }
+    // Use vscode.workspace.findFiles to get all files, respecting files.exclude
+    const files = await vscode.workspace.findFiles('**/*', null);
+
+    return files
+        .map(file => file.fsPath)
+        .filter(filePath => {
+            const relativePath = path.relative(workspaceRoot, filePath);
+            return !ig.ignores(relativePath);
+        });
+}
+
+async function getIgnoredPatterns(workspaceRoot: string): Promise<string[]> {
+    const gitignorePath = path.join(workspaceRoot, '.gitignore');
+    let gitignoreContent = '';
+    try {
+        gitignoreContent = await fs.promises.readFile(gitignorePath, 'utf-8');
+    } catch (error) {
+        // .gitignore doesn't exist, which is fine
     }
 
-    return files;
+    const config = vscode.workspace.getConfiguration('fileConcatenator');
+    const templatesAndRules = config.get('templatesAndRules') as { additionalIgnoreRules: string[] };
+    const additionalRules: string[] = templatesAndRules.additionalIgnoreRules || [];
+
+    return gitignoreContent.split('\n')
+        .concat(additionalRules)
+        .filter(line => line.trim() !== '' && !line.startsWith('#'));
 }
 
 async function readFile(filePath: string): Promise<string> {
