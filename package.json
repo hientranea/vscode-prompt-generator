@@ -50,7 +50,7 @@
     "commands": [
       {
         "command": "prompt-generator.generate",
-        "title": "Prompt Generator"
+        "title": "Prompt Generator (cmd+M)"
       },
       {
         "command": "fileConcatenator.editTemplates",
@@ -58,6 +58,14 @@
       }
     ]
   },
+  "keybindings": [
+    {
+      "command": "prompt-generator.generate",
+      "key": "cmd+M",
+      "mac": "cmd+M",
+      "when": "editorTextFocus"
+    }
+  ],
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack",

@@ -27,6 +27,18 @@ Effortlessly combine multiple files into a single file with customizable templat
 2. Type "Edit Prompt Templates" and select the command
 3. The template editor will open, allowing you to add, edit, or delete templates
 
+### Keybindings
+
+By default, you can use the following keybinding to trigger the Prompt Generator:
+
+- macOS: `Cmd+M`
+
+You can customize this keybinding in VS Code:
+
+1. Open the Keyboard Shortcuts editor (Code > Settings > Keyboard Shortcuts)
+2. Search for "Prompt Generator"
+3. Click on the pencil icon next to the command and enter your preferred keybinding
+
 ## Known Issues
 
 TBD

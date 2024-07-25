@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 import ignore from 'ignore';
 import { TemplateEditorProvider } from './TemplateEditorProvider';
@@ -11,6 +12,14 @@ interface Template {
 
 export function activate(context: vscode.ExtensionContext) {
     let disposable = vscode.commands.registerCommand('prompt-generator.generate', async () => {
+        // Add status bar item
+        const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+        statusBarItem.text = "$(sparkle) Prompt Generator";
+        statusBarItem.tooltip = `Generate Prompt (${os.platform() === 'darwin' ? 'cmd+M' : 'cmd+M'})`;
+        statusBarItem.command = 'prompt-generator.generate';
+        statusBarItem.show();
+        context.subscriptions.push(statusBarItem);
+
         const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
         if (!workspaceFolder) {
             vscode.window.showErrorMessage('No workspace folder open');
