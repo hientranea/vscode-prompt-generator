@@ -1,8 +1,9 @@
 {
   "name": "prompt-generator",
-  "displayName": "Prompt Generator",
+  "displayName": "AiDD Prompt Generator",
   "description": "Effortlessly combine multiple files into a single file with customizable templates. Perfect for developers when applying AI-driven Development",
   "version": "0.0.2",
+  "publisher": "HienTran",
   "engines": {
     "vscode": "^1.91.0"
   },
@@ -30,7 +31,9 @@
                 "template": "Given the below code. Help me review the code. For now and the rest of this session, make sure you output professional-grade, production-ready code that is clean, optimized, maintainable and follow best practices. Only print out the changed parts and where they are, never print out full file contents unless it's a new file. Never print out unchanged files.\n\n\n{content}"
               }
             ],
-            "additionalIgnoreRules": [".git"]
+            "additionalIgnoreRules": [
+              ".git"
+            ]
           },
           "description": "Pre-defined prompt templates and additional ignore rules"
         }
@@ -71,11 +74,21 @@
     "compile": "webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint . --ext .ts,.js",
+    "prepare": "husky install",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@types/mocha": "^10.0.7",
@@ -86,6 +99,11 @@
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.4.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.3.3",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.5",
     "webpack": "^5.92.1",
