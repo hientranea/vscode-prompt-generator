@@ -18,7 +18,7 @@ Effortlessly combine multiple files into a single file with customizable templat
 
 ## Requirements
 
-- Visual Studio Code version 1.91.0 or higher
+- Visual Studio Code version 1.86.0 or higher
 
 ## Installation
 

@@ -11,7 +11,7 @@ module.exports = {
   ignorePatterns: ["dist/**", "out/**", "*.js"],
   rules: {
     "prettier/prettier": "error",
-    "@typescript-eslint/explicit-function-return-type": "warning",
+    "@typescript-eslint/explicit-function-return-type": "warn",
     "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
   },
 };

@@ -5,7 +5,7 @@
   "version": "0.0.2",
   "publisher": "HienTran",
   "engines": {
-    "vscode": "^1.91.0"
+    "vscode": "^1.86.0"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
     "customEditors": [
       {
         "viewType": "fileConcatenator.templateEditor",
-        "displayName": "Prompt Editor",
+        "displayName": "AiDD Prompt Editor",
         "selector": [
           {
             "filenamePattern": "fileConcatenator.templates.json"
@@ -53,11 +53,11 @@
     "commands": [
       {
         "command": "prompt-generator.generate",
-        "title": "Prompt Generator (cmd+M)"
+        "title": "AiDD Prompt Generator (cmd+M)"
       },
       {
         "command": "fileConcatenator.editTemplates",
-        "title": "Edit Prompt Templates"
+        "title": "AiDD Prompt Generator: Settings"
       }
     ]
   },
@@ -93,7 +93,7 @@
   "devDependencies": {
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
-    "@types/vscode": "^1.91.0",
+    "@types/vscode": "^1.86.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.11.0",
     "@vscode/test-cli": "^0.0.9",
