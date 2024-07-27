@@ -69,6 +69,10 @@
       "when": "editorTextFocus"
     }
   ],
+  "files": [
+    "dist",
+    "media"
+  ],
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack",
