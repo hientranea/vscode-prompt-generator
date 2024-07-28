@@ -77,15 +77,6 @@ We welcome contributions to the Prompt Generator!
 
 - Currently, there are no known issues. If you encounter any problems, please file an issue on our [GitHub repository](https://github.com/hientranea/vscode-prompt-generator/issues).
 
-## Release Notes
-
-### 0.0.2
-
-- Initial release of AiDD Prompt Generator
-- Added basic file concatenation functionality
-- Implemented customizable templates
-- Included ignore rules support
-
 ## License
 
 This project is licensed under the Apache-2.0 license - see the [LICENSE](LICENSE) file for details.

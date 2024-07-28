@@ -2,7 +2,7 @@
   "name": "prompt-generator",
   "displayName": "AiDD Prompt Generator",
   "description": "Effortlessly combine multiple files into a single file with customizable templates. Perfect for developers when applying AI-driven Development",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "publisher": "HienTran",
   "engines": {
     "vscode": "^1.86.0"
