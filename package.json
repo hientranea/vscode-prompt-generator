@@ -53,13 +53,42 @@
     "commands": [
       {
         "command": "prompt-generator.generate",
-        "title": "AiDD Prompt Generator (cmd+M)"
+        "title": "AiDD Prompt Generator: Generate prompt"
       },
       {
         "command": "prompt-generator.settings",
         "title": "AiDD Prompt Generator: Configuration"
+      },
+      {
+        "command": "fileExplorer.toggleSelection",
+        "title": "Toggle Selection"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aidd-prompt-generator",
+          "title": "AiDD Prompt Generator",
+          "icon": "icon.png"
+        }
+      ]
+    },
+    "views": {
+      "aidd-prompt-generator": [
+        {
+          "id": "fileExplorer",
+          "name": "File Explorer"
+        }
+      ]
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "fileExplorer.toggleSelection",
+          "when": "view == fileExplorer"
+        }
+      ]
+    }
   },
   "keybindings": [
     {
