@@ -22,7 +22,7 @@
     "configuration": {
       "title": "Prompt Generator",
       "properties": {
-        "fileConcatenator.templatesAndRules": {
+        "promptGenerator.settings": {
           "type": "object",
           "default": {
             "templates": [
@@ -41,11 +41,11 @@
     },
     "customEditors": [
       {
-        "viewType": "fileConcatenator.templateEditor",
+        "viewType": "promptGenerator.templateEditor",
         "displayName": "AiDD Prompt Editor",
         "selector": [
           {
-            "filenamePattern": "fileConcatenator.templates.json"
+            "filenamePattern": "promptGenerator.templates.json"
           }
         ]
       }
@@ -56,8 +56,8 @@
         "title": "AiDD Prompt Generator (cmd+M)"
       },
       {
-        "command": "fileConcatenator.editTemplates",
-        "title": "AiDD Prompt Generator: Settings"
+        "command": "prompt-generator.settings",
+        "title": "AiDD Prompt Generator: Configuration"
       }
     ]
   },
@@ -79,7 +79,6 @@
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
     "lint": "eslint . --ext .ts,.js",
-    "prepare": "husky install",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
@@ -105,7 +104,6 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "prettier": "^3.3.3",
     "ts-loader": "^9.5.1",

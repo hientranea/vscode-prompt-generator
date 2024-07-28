@@ -61,7 +61,7 @@ You can customize this keybinding in VS Code:
 If you want to contribute to the Prompt Generator or set it up for development, follow these steps:
 
 1. Clone the repository
-2. Install dependencies: npm run
+2. Install dependencies: `npm install`
 3. To run the extension in debug mode:
 
 - Press F5 or select "Run and Debug" from the sidebar

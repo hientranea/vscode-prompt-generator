@@ -12,7 +12,7 @@ export class TemplateEditorProvider implements vscode.CustomTextEditorProvider {
     return providerRegistration;
   }
 
-  private static readonly viewType = "fileConcatenator.templateEditor";
+  private static readonly viewType = "promptGenerator.templateEditor";
 
   constructor(private readonly context: vscode.ExtensionContext) {}
 
@@ -23,11 +23,12 @@ export class TemplateEditorProvider implements vscode.CustomTextEditorProvider {
   ): Promise<void> {
     webviewPanel.webview.options = {
       enableScripts: true,
+      localResourceRoots: [vscode.Uri.file(path.join(this.context.extensionPath, "media"))],
     };
-    webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+    webviewPanel.webview.html = await this.getHtmlForWebview(webviewPanel.webview);
 
     function updateWebview(): void {
-      const config = vscode.workspace.getConfiguration("fileConcatenator").get("templatesAndRules");
+      const config = vscode.workspace.getConfiguration("promptGenerator").get("settings");
       webviewPanel.webview.postMessage({
         type: "update",
         data: config,
@@ -35,7 +36,7 @@ export class TemplateEditorProvider implements vscode.CustomTextEditorProvider {
     }
 
     const configurationChangeListener = vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration("fileConcatenator.templatesAndRules")) {
+      if (e.affectsConfiguration("promptGenerator.settings")) {
         updateWebview();
       }
     });
@@ -48,8 +49,8 @@ export class TemplateEditorProvider implements vscode.CustomTextEditorProvider {
       switch (e.type) {
         case "update":
           await vscode.workspace
-            .getConfiguration("fileConcatenator")
-            .update("templatesAndRules", e.data, vscode.ConfigurationTarget.Global);
+            .getConfiguration("promptGenerator")
+            .update("settings", e.data, vscode.ConfigurationTarget.Global);
           updateWebview();
           return;
         case "getData":
@@ -61,15 +62,20 @@ export class TemplateEditorProvider implements vscode.CustomTextEditorProvider {
     updateWebview();
   }
 
-  private getHtmlForWebview(webview: vscode.Webview): string {
+  private async getHtmlForWebview(webview: vscode.Webview): Promise<string> {
     const htmlPath = path.join(this.context.extensionPath, "media", "templateEditor.html");
-    let htmlContent = fs.readFileSync(htmlPath, "utf-8");
+    let htmlContent = await fs.promises.readFile(htmlPath, "utf-8");
 
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.file(path.join(this.context.extensionPath, "media", "templateEditor.js"))
     );
+    const styleUri = webview.asWebviewUri(
+      vscode.Uri.file(path.join(this.context.extensionPath, "media", "styles.css"))
+    );
 
-    htmlContent = htmlContent.replace("${scriptUri}", scriptUri.toString());
+    htmlContent = htmlContent
+      .replace("${scriptUri}", scriptUri.toString())
+      .replace("${styleUri}", styleUri.toString());
 
     return htmlContent;
   }
