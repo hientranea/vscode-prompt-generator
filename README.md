@@ -1,3 +1,8 @@
+
+#### This project is archived since it will be moved under the East Agile AiDD Tools repo soon.
+
+----
+
 # AiDD Prompt Generator
 
 [![License](https://img.shields.io/github/license/hientranea/vscode-prompt-generator.svg)](https://github.com/hientranea/vscode-prompt-generator/blob/main/LICENSE)
